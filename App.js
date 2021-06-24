@@ -17,6 +17,7 @@ export default function App() {
 behavior={Platform.OS === "ios" ? "padding" : "height"}
 style={styles.container}
 >
+<StatusBar backgroundColor="#E50914" style="auto" />
       <Header />
       <Main />
       <Footer />
