@@ -1,9 +1,9 @@
 import React from 'react'
 import { StyleSheet, Text, TouchableOpacity } from 'react-native'
 
-export default function ButtonSearch({title, style}) {
+export default function ButtonSearch({title, style, onPress}) {
     return (
-        <TouchableOpacity style={styles.button , style} >
+        <TouchableOpacity style={styles.button , style} onPress={onPress} >
             <Text style={styles.text}> {title} </Text>
         </TouchableOpacity>
     )
