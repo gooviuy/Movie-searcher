@@ -9,20 +9,33 @@ import {
   Keyboard,
   FlatList,
   Image,
+  useWindowDimensions,
 } from "react-native";
-import ButtonSearch from "./ButtonSearch";
+import ButtonSearch from "../components/ButtonSearch";
 
 export default function Main() {
   const [movieName, setMovieName] = useState("");
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false); // para mostrar si esta cargando en la búsqueda.
+  
+  const { width: windowWidth} = useWindowDimensions();
 
+
+  const numColumns = Math.floor(windowWidth / 180) /// ancho del elemento 150 + 15 + 15 margen derecho , margen izquierdo.
+                                        // redondeo para abajo usando math.
+  
+  
   const handleSearch = () => {
     Keyboard.dismiss();
+debugger; // para la ejecucion de programa en sesion debugger
+
+    setLoading(true)
+    setMovies([])
     axios
       .get("https://www.omdbapi.com/?apikey=93064b0b&s=" + movieName)
       .then((result) => {
         setMovies(result.data.Search);
-      });
+      }).finally(() => setLoading(false));
   };
 
   return (
@@ -33,19 +46,24 @@ export default function Main() {
           onChangeText={setMovieName}
           placeholder="Enter a movie name"
           style={styles.textInput}
+          onSubmitEditing={handleSearch} // evento qe se dispara cada vez que se busca film
         />
         <ButtonSearch title="Search" onPress={handleSearch} />
       </View>
       <FlatList
+   
         data={movies}
         renderItem={({ item }) => (
-          <View>
+          <View style={styles.car}>
             <Image source={{ uri: item.Poster }} style={styles.movieImage} />
             <Text style={styles.movieTitle}>{item.Title}</Text>
           </View>
         )}
         keyExtractor={(item) => item.imdbID}
-        numColumns={2}
+        numColumns={numColumns}
+        key={numColumns}// sirve para forzar el recargar el elemento, ej cuando muevo el celular para que se adapte a pantalla movil.
+        contentContainerStyle ={styles.list} // para crear items alineados.
+        ListEmptyComponent={<Text style={{color:"white", marginTop: 150, fontSize: 20, textAlign: "center"}}>{loading ? "Loading" : "The film that you are looking for does not exist"}.</Text>}// si no machea ningun film.
       />
     </View>
   );
@@ -76,5 +94,15 @@ const styles = StyleSheet.create({
   movieImage: {
     width: 150,
     height: 150,
+    borderRadius: 10,
   },
+  car: {
+    paddingTop: 15,
+    alignContent: "space-between",
+    width: 150,
+   margin: 15,
+  },
+  list: {
+    alignItems: "center"
+  }
 });
