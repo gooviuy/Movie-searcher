@@ -7,12 +7,9 @@ import {Link} from "react-router-native"
 export default function Footer() {
     return (
         <SafeAreaView style={styles.view} >
-            <Link style={styles.text} underlayColor="red" to="/">
-            <Text>Home</Text>
-            </Link>
-            <Link style={styles.text} to="/search">
-                <Text>Search</Text>
-            </Link> 
+         <NavLink to="/" text="Home" />
+         <NavLink to="/search" text="Search" />
+          
         </SafeAreaView>
     )
 }
@@ -27,5 +24,10 @@ view: {
 },
 text: {
 color: "white",
-}
+},
+ linkText: {
+    color: "white",
+    padding: 5,
+    fontSize: 15,
+  },
 })

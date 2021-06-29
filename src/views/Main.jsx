@@ -10,14 +10,16 @@ import {
   FlatList,
   Image,
   useWindowDimensions,
+  ScrollView,
 } from "react-native";
+
 import ButtonSearch from "../components/ButtonSearch";
+import MovieCard from "../components/MovieCard";
 
 export default function Main() {
   const [movieName, setMovieName] = useState("");
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(false); // para mostrar si esta cargando en la búsqueda.
-  
   const { width: windowWidth} = useWindowDimensions();
 
 
@@ -27,7 +29,7 @@ export default function Main() {
   
   const handleSearch = () => {
     Keyboard.dismiss();
-debugger; // para la ejecucion de programa en sesion debugger
+//debugger; // para la ejecucion de programa en sesion debugger
 
     setLoading(true)
     setMovies([])
@@ -53,18 +55,23 @@ debugger; // para la ejecucion de programa en sesion debugger
       <FlatList
    
         data={movies}
-        renderItem={({ item }) => (
-          <View style={styles.car}>
-            <Image source={{ uri: item.Poster }} style={styles.movieImage} />
-            <Text style={styles.movieTitle}>{item.Title}</Text>
-          </View>
-        )}
+        renderItem={({ item }) => <MovieCard movie= {item} />}
+        
         keyExtractor={(item) => item.imdbID}
         numColumns={numColumns}
         key={numColumns}// sirve para forzar el recargar el elemento, ej cuando muevo el celular para que se adapte a pantalla movil.
         contentContainerStyle ={styles.list} // para crear items alineados.
         ListEmptyComponent={<Text style={{color:"white", marginTop: 150, fontSize: 20, textAlign: "center"}}>{loading ? "Loading" : "The film that you are looking for does not exist"}.</Text>}// si no machea ningun film.
       />
+  }
+/>
+      {/* <ScrollView key={numColumns}>
+        {movies.map((movie) => (
+          <Text style={{ color: "white" }} key={movie.imdbID}>
+            {movie.Title}
+          </Text>
+        ))}
+      </ScrollView> */}
     </View>
   );
 }
@@ -88,21 +95,7 @@ const styles = StyleSheet.create({
     backgroundColor: "antiquewhite",
     marginRight: 5,
   },
-  movieTitle: {
-    color: "white",
-  },
-  movieImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 10,
-  },
-  car: {
-    paddingTop: 15,
-    alignContent: "space-between",
-    width: 150,
-   margin: 15,
-  },
   list: {
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });
