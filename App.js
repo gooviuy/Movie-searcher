@@ -4,10 +4,11 @@ import { StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NativeRouter, Route, Link, Switch } from "react-router-native";
 
-import Header from "./src/components/Header"
-import Main from "./src/views/Main"
-import Footer from "./src/components/Footer"
-import Home from "./src/views/Home"
+import Header from "./src/components/Header";
+import Main from "./src/views/Main";
+import Footer from "./src/components/Footer";
+import Home from "./src/views/Home";
+import MovieDetails from "./src/views/MovieDetails";
 
 
 
@@ -24,7 +25,7 @@ style={styles.container}
       
       <Switch>
         <Route exact path="/" component={Main} />
-        <Route exact path="/movies/:movieId" />
+        <Route exact path="/movies/:movieId"  component={MovieDetails}/>
         <Route exact path="/search" component={Home} />
       </Switch>
       

@@ -3,6 +3,12 @@ import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import {Link} from "react-router-native"
 
 
+const NavLink = ({ to, text }) => (
+  <Link style={styles.text} underlayColor="red" to={to}>
+    <Text style={styles.linkText}>{text}</Text>
+  </Link>
+);
+
 
 export default function Footer() {
     return (

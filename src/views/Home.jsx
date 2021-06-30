@@ -6,10 +6,11 @@ export default function Home() {
      <View style={styles.home}>
       <Text>Home</Text>
     </View>
+  );
 }
 
 const styles = StyleSheet.create({
     home: {
         flex: 1,
-    }
-})
+    },
+});

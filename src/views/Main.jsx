@@ -61,10 +61,10 @@ export default function Main() {
         numColumns={numColumns}
         key={numColumns}// sirve para forzar el recargar el elemento, ej cuando muevo el celular para que se adapte a pantalla movil.
         contentContainerStyle ={styles.list} // para crear items alineados.
-        ListEmptyComponent={<Text style={{color:"white", marginTop: 150, fontSize: 20, textAlign: "center"}}>{loading ? "Loading" : "The film that you are looking for does not exist"}.</Text>}// si no machea ningun film.
-      />
-  }
-/>
+        ListEmptyComponent={
+        <Text style={{color:"white", marginTop: 150, fontSize: 20, textAlign: "center"}}>{loading ? "Loading" : "The film that you are looking for does not exist"}.</Text>
+        }// si no machea ningun film.
+ />
       {/* <ScrollView key={numColumns}>
         {movies.map((movie) => (
           <Text style={{ color: "white" }} key={movie.imdbID}>
